@@ -15,6 +15,7 @@ import sys
 from time import sleep, time
 from urllib.parse import urlencode
 import orjson
+import json
 from utils.helper import get_locale, get_language_code, get_all_languages
 from utils.io import download_files, rename_filename
 from utils.subtitle import convert_subtitle
@@ -353,6 +354,8 @@ class IQIYI(BaseService):
             lang_code = data['initialProps']['pageProps']['langCode']
 
             data = data['initialState']['album']['videoAlbumInfo']
+            with open("data.json", "w") as f:
+                json.dump(data, f, indent=2)
 
             allow_regions = data['regionsAllowed'].split(',')
             self.GEOFENCE = allow_regions
